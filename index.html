@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Keyboard</title>
+    <link rel="stylesheet" href="master.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-side">
+            <div class="hint">
+                <span>city in europe</span>
+            </div>
+            <input type="text" id="output" placeholder="Type here...">
+            <div class="keyboard" id="keyboard">
+                <!-- Row 1 -->
+                <div class="row">
+                    <button class="key">Q</button>
+                    <button class="key">W</button>
+                    <button class="key">E</button>
+                    <button class="key">R</button>
+                    <button class="key">T</button>
+                    <button class="key">Y</button>
+                    <button class="key">U</button>
+                    <button class="key">I</button>
+                    <button class="key">O</button>
+                    <button class="key">P</button>
+                </div>
+                <!-- Row 2 -->
+                <div class="row">
+                    <button class="key">A</button>
+                    <button class="key">S</button>
+                    <button class="key">D</button>
+                    <button class="key">F</button>
+                    <button class="key">G</button>
+                    <button class="key">H</button>
+                    <button class="key">J</button>
+                    <button class="key">K</button>
+                    <button class="key">L</button>
+                </div>
+                <!-- Row 3 -->
+                <div class="row">
+                    <button class="key">Z</button>
+                    <button class="key">X</button>
+                    <button class="key">C</button>
+                    <button class="key">V</button>
+                    <button class="key">B</button>
+                    <button class="key">N</button>
+                    <button class="key">M</button>
+                </div>
+            </div>
+        </div>
+        <div class="right-side">
+            <h1>Hangman</h1>
+            <div class="hang">
+                <div class="base"></div>
+                <div class="vertical"></div>
+                <div class="top"></div>
+                <div class="rope"></div>
+                <!-- Person -->
+                <div class="head"></div>
+                <div class="body"></div>
+                <div class="arm-left"></div>
+                <div class="arm-right"></div>
+                <div class="leg-left"></div>
+                <div class="leg-right"></div>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
