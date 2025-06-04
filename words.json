@@ -1,0 +1,7 @@
+{
+    "city": ["Pris", "Munich", "London", "Aleppo", "Homs", "Riyadh"],
+    "programming language": ["Go", "Java", "Javascript", "Python", "Kotlin", "Swift", "Assembly"],
+    "body part": ["Arm", "Leg", "Lung", "Head", "Hand", "Thigh", "Nose", "Mouth"],
+    "job": ["Doctor", "Nurse", "Engineer", "Teacher", "Developer", "Scientist",
+            "Pilot", "Chef", "Farmer", "Artist", "Driver", "Lawyer"]
+}
