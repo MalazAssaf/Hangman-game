@@ -9,8 +9,8 @@ body {
     align-items:center ;
     user-select: none; /*To prevent copying*/
 }
-/* Making component */
 
+/* Making component */
 .container {
     display: flex;
     align-items: center;
@@ -55,6 +55,8 @@ body {
         width: 1170px;
     }
 }
+
+/* Start right and hand sides */
 
 .right-side{
     flex-direction: column;
@@ -147,7 +149,9 @@ body {
     pointer-events: none;
     opacity: 0.5; 
 }
+/* End right and hand sides */
 
+/* Start Hang */
 .hang {
     position: relative;
     width: 120px;
@@ -155,7 +159,6 @@ body {
     margin: 0 auto;
 }
 
-/* Structure */
 .hang *{
     display: none;
 }
@@ -248,19 +251,70 @@ body {
     transform: rotate(-30deg);
     left: 107px;
 }
+/* End Hang */
 
-.wining{
+/* Start Winning And Losing Boxes */
+.box{
     display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     width: 300px;
-    padding: 20px;
+    padding: 1.5rem;
     background-color: rgba(0, 0, 0, 0.8);
-    color: white;
+    color: #fff; 
+    line-height: 1.6;
     text-align: center;
-    border-radius: 10px;
-    text-transform: capitalize;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
+}
+
+@media (max-width: 767px) {
+    .box{
+        width: 250px;
+    }
+}
+
+/* Put specific fonts */
+.box p, .box .retry-btn{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600; 
+    text-transform: capitalize;
+}
+
+.box .retry-btn{
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.box .retry-btn:hover{
+    background-color: #ccc;
+}
+
+.winning{
+    background: linear-gradient(to right, #00c853, #b2ff59); /* vibrant green gradient */
+}
+
+/* Highlighting the guessed word when winning */
+.winning p span{
+    color: #d4ff00;
+    font-weight: bold;
+}
+
+.losing {
+    background: linear-gradient(to right, #b00020, #ff4d4d);     
+}
+
+/* Highlighting the guessed word when losing */
+.losing p span {
+    color: #fff200; /* bright yellow */
 }

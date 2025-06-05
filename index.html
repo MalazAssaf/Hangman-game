@@ -4,6 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Virtual Keyboard</title>
     <link rel="stylesheet" href="master.css">
+    <!-- Font Awesome   -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Importing font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -54,6 +58,7 @@
         <div class="right-side">
             <h1>Hangman</h1>
             <div class="hang">
+                <!-- Hang -->
                 <div class="base"></div>
                 <div class="vertical"></div>
                 <div class="top"></div>
@@ -68,12 +73,17 @@
             </div>
         </div>
     </div>
-    <div class="wining">
-        <p><span></span></p>
-        <div class="buttons d-flex justify-content-center align-items-center gap-2">
-            <button class="button-x px-1 reply text-capitalize">play again!</button>
-            <button class="button-o px-1 reset text-capitalize">reset score</button>
+        <div class="box winning">
+            <p class="winning-para">✨ Congrats! You saved the hangman and cracked the word: <span></span></p>
+                <button class="retry-btn">
+                    retry <i class="fa-solid fa-rotate-right"></i>
+                </button>
         </div>
+        <div class="box losing">
+            <p class="losing-para">💀 Oh no! The hangman couldn't be saved. The correct word was: <span class="guessed-word">Hand</span></p>
+                <button class="retry-btn">
+                    retry <i class="fa-solid fa-rotate-right"></i>
+                </button>
         </div>
     </div>
     <script src="main.js"></script>

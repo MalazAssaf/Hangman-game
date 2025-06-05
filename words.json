@@ -1,7 +1,23 @@
 {
-    "city": ["Pris", "Munich", "London", "Aleppo", "Homs", "Riyadh"],
-    "programming language": ["Go", "Java", "Javascript", "Python", "Kotlin", "Swift", "Assembly"],
-    "body part": ["Arm", "Leg", "Lung", "Head", "Hand", "Thigh", "Nose", "Mouth"],
-    "job": ["Doctor", "Nurse", "Engineer", "Teacher", "Developer", "Scientist",
-            "Pilot", "Chef", "Farmer", "Artist", "Driver", "Lawyer"]
+    "Arabic cities": [
+        "Aleppo", "Homs", "Riyadh", "Cairo", "Dubai", "Baghdad", "Amman", "Damascus", "Tunis", "Beirut",
+        "Doha", "Manama", "Muscat", "Khartoum", "Tripoli", "Rabat", "Algiers", "Nouakchott", "Mogadishu"
+    ],
+    "Foreign cities": [
+        "Paris", "Munich", "London", "New York", "Tokyo", "Moscow", "Berlin", "Sydney", "Toronto", "Rome",
+        "Istanbul", "Madrid", "Vienna", "Seoul", "Bangkok", "Zurich", "Stockholm", "Lisbon", "Brussels", "Oslo"
+    ],
+    "programming language": [
+        "Go", "Java", "Javascript", "Python", "Kotlin", "Swift", "Assembly", "C", "C++", "Ruby",
+        "PHP", "Rust", "TypeScript", "Perl", "Dart", "Scala", "Elixir", "Haskell", "Lua", "Objective-C"
+    ],
+    "body part": [
+        "Arm", "Leg", "Lung", "Head", "Hand", "Thigh", "Nose", "Mouth", "Eye", "Ear", "Toe", "Foot",
+        "Knee", "Ankle", "Back", "Neck", "Shoulder", "Wrist", "Stomach", "Heart"
+    ],
+    "job": [
+        "Doctor", "Nurse", "Engineer", "Teacher", "Developer", "Scientist", "Pilot", "Chef", "Farmer",
+        "Artist", "Driver", "Lawyer", "Dentist", "Firefighter", "Police", "Architect", "Pharmacist",
+        "Electrician", "Mechanic", "Journalist", "Plumber", "Photographer", "Designer", "Manager"
+    ]
 }
