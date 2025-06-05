@@ -1,15 +1,11 @@
 {
-    "Arabic cities": [
+    "Arabic city": [
         "Aleppo", "Homs", "Riyadh", "Cairo", "Dubai", "Baghdad", "Amman", "Damascus", "Tunis", "Beirut",
         "Doha", "Manama", "Muscat", "Khartoum", "Tripoli", "Rabat", "Algiers", "Nouakchott", "Mogadishu"
     ],
-    "Foreign cities": [
+    "Foreign city": [
         "Paris", "Munich", "London", "New York", "Tokyo", "Moscow", "Berlin", "Sydney", "Toronto", "Rome",
         "Istanbul", "Madrid", "Vienna", "Seoul", "Bangkok", "Zurich", "Stockholm", "Lisbon", "Brussels", "Oslo"
-    ],
-    "programming language": [
-        "Go", "Java", "Javascript", "Python", "Kotlin", "Swift", "Assembly", "C", "C++", "Ruby",
-        "PHP", "Rust", "TypeScript", "Perl", "Dart", "Scala", "Elixir", "Haskell", "Lua", "Objective-C"
     ],
     "body part": [
         "Arm", "Leg", "Lung", "Head", "Hand", "Thigh", "Nose", "Mouth", "Eye", "Ear", "Toe", "Foot",

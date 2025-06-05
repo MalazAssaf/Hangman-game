@@ -100,8 +100,7 @@ function chooseWord(words) {
     const numOfValues = words[randomCategory].length; // Get length of selected category
     const randomValue = Math.floor(Math.random() * numOfValues); // Select random value index
     const selectedWord = words[randomCategory][randomValue]; // Get the word
-    hintSentence.textContent = `${randomCategory}`; // Show the hint (category name)
-    console.log(selectedWord)
+    hintSentence.textContent += `${randomCategory}`; // Show the hint (category name)
     return selectedWord;
 }
 
