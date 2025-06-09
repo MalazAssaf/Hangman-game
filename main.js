@@ -105,6 +105,7 @@ retryBtns.forEach(btn => {
 // ===========================
 
 function switchLang(lang) {
+    // reset variables
     currentLanguage = lang;
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
@@ -116,6 +117,18 @@ function switchLang(lang) {
     document.querySelectorAll(".retry-btn").forEach(btn => {
         btn.childNodes[0].textContent = language[lang].retry + " ";
     });
+
+    // reseting the variables
+    wrongTries = 0;
+    rightTries = 0;
+    letterContainer.innerHTML = ""; // Clear old letter inputs
+    // Hide all hangman parts
+    Array.from(hang.children).forEach(part => part.style.display = "none");
+    // Re-enable all keyboard keys
+    runAndDisableKeys();
+    // Hide win/lose boxes
+    document.querySelector(".winning").style.display = "none";
+    document.querySelector(".losing").style.display = "none";
 
     makingKeyboard(lang);
     // start the game
@@ -172,6 +185,7 @@ function chooseWord(words) {
     const randomValue = Math.floor(Math.random() * numOfValues); // Select random value index
     const selectedWord = words[randomCategory][randomValue]; // Get the word
     hintSentence.textContent = `${randomCategory}`; // Show the hint (category name)
+    console.log(selectedWord)
     return selectedWord;
 }
 
@@ -201,7 +215,7 @@ function makingPlots(selectedWord) {
 function win(guessedWord) {
     const winBox = document.querySelector(".winning");
     const holder = document.querySelector(".winning .winning-para span");
-    disablingKeys();
+    runAndDisableKeys();
     setTimeout(() => {
         showingWinAndLose(winBox, holder, guessedWord);
         playSound(winningSound);
@@ -211,7 +225,7 @@ function win(guessedWord) {
 function lose(guessedWord) {
     const loseBox = document.querySelector(".losing");
     const holder = document.querySelector(".losing .losing-para span");
-    disablingKeys();
+    runAndDisableKeys();
     setTimeout(() => {
         showingWinAndLose(loseBox, holder, guessedWord);
         playSound(losingSound);
@@ -224,9 +238,9 @@ function showingWinAndLose(box, wordHolder, guessedWord) {
 }
 
 // A function to disable all keys after win or lose
-function disablingKeys() {
+function runAndDisableKeys() {
     keys = document.querySelectorAll(".key"); // Used for disabling keys
-    keys.forEach(key => key.classList.add("disabled"));
+    keys.forEach(key => key.classList.toggle("disabled"));
 }
 
 // ===========================
@@ -241,7 +255,7 @@ async function resetGame() {
     // Hide all hangman parts
     Array.from(hang.children).forEach(part => part.style.display = "none");
     // Re-enable all keyboard keys
-    keys.forEach(key => key.classList.remove("disabled"));
+    runAndDisableKeys();
     // Hide win/lose boxes
     document.querySelector(".winning").style.display = "none";
     document.querySelector(".losing").style.display = "none";
