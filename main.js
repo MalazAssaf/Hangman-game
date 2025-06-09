@@ -1,98 +1,169 @@
-// Selecting elements from the DOM
-const hintSentence = document.querySelector(".hint span");
+// ===========================
+// 1. Game State Variables
+// ===========================
+
+let wrongTries = 0;
+let rightTries = 0;
+let currentWord = [];
+let currentLanguage = "en"; // Set English by default
+let keys;
+
+// ===========================
+// 2. Language & Keyboard Setup
+// ===========================
+
+const language = {
+    en: {
+        exp_sentence: "Guess the word to help the poor man!",
+        win: "✨ Congrats! You saved the hangman and cracked the word:",
+        lose: "💀 Oh no! The hangman couldn't be saved. The correct word was:",
+        retry: "Retry"
+    },
+    ar: {
+        exp_sentence: "خمن الكلمة لإنقاذ الرجل!",
+        win: "✨ مبروك! أنقذت الرجل واكتشفت الكلمة:",
+        lose: "💀 للأسف! لم يتم إنقاذ الرجل. الكلمة الصحيحة كانت:",
+        retry: "أعد المحاولة"
+    }
+};
+
+const keyboardLayOut = {
+    en: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+    ar: "ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي ة ئ".split(" ")
+};
+
+// ===========================
+// 3. DOM Elements
+// ===========================
+
+const hintSentence = document.querySelector(".hint span"); // To put the hint later
+const expSentence = document.querySelector(".exp-sentence"); // To put explanation 
 const letterContainer = document.querySelector(".letters-container");
-const hang = document.querySelector(".hang"); // The hang parts
-const keys = document.querySelectorAll(".key"); // Used for disabling keys
+const hang = document.querySelector(".hang");
 const keyboard = document.getElementById('keyboard');
 
-// Sounds
-const correctSound = ("./audio/correct-6033.mp3");
-const wrongSound = ("./audio/wrong-47985.mp3");
-const winningSound = ("./audio/goodresult-82807.mp3");
-const losingSound = ("./audio/fail-144746.mp3");
+const enBtn = document.querySelectorAll(".eng");
+const araBtn = document.querySelectorAll(".ara");
+const retryBtns = document.querySelectorAll(".retry-btn");
 
-let wrongTries = 0; // Counter to track wrong guesses (used for losing)
-let rightTries = 0; // Counter to track correct guesses (used for winning)
-let currentWord = []; // Holds the current guessed word as an array
+// ===========================
+// 4. Event Listeners
+// ===========================
 
-// Setting the keyboard functionality (Event Listener added once only)
+// Language switch buttons
+enBtn.forEach(btn => {
+    btn.addEventListener("click", function () {
+        switchLang("en");
+        document.querySelector(".start-game").style.display = "none";
+    });
+});
+
+araBtn.forEach(btn => {
+    btn.addEventListener("click", function () {
+        switchLang("ar");
+        document.querySelector(".start-game").style.display = "none";
+    });
+});
+
+// Keyboard input
 keyboard.addEventListener('click', (event) => {
-    const target = event.target; // Hold the clicked key
+    const target = event.target;
     if (target.classList.contains('key') && !target.classList.contains('disabled')) {
-        const letter = target.textContent.toUpperCase(); // Get the letter and make it uppercase
+        const letter = target.textContent.toUpperCase();
+
         if (currentWord.includes(letter)) {
             playSound(correctSound);
-            // Reveal all occurrences of the letter
             currentWord.forEach((char, index) => {
                 if (letter === char) {
-                    letterContainer.children[index].value = letter; // Show correct letter
+                    letterContainer.children[index].value = letter; // put the later in the input field
                     rightTries++;
                 }
             });
-            // Check win condition
-            if (rightTries === currentWord.length) {
-                win(currentWord.join("")); // Take the guessed word from currentWord
+            if (rightTries === currentWord.length) { // the user wins
+                win(currentWord.join(""));
             }
         }
         else {
-            // Wrong guess - show a part of the hangman
             playSound(wrongSound);
-            hang.children[wrongTries].style.display = "flex";
+            hang.children[wrongTries].style.display = "flex"; // show a part from the hang
             wrongTries++;
-            // Check losing condition
-            if (wrongTries === hang.children.length) {
+            if (wrongTries === hang.children.length) { // The user loses
                 lose(currentWord.join(""));
             }
         }
-        target.classList.add("disabled"); // Disable the clicked key
+        target.classList.add("disabled"); // disable the clicked key
     }
 });
 
-// A function to set the current guessed word globally
-function setCurrentWord(word) {
-    currentWord = word.toUpperCase().split(""); // Convert word to uppercase array
+// Retry buttons
+retryBtns.forEach(btn => {
+    btn.addEventListener("click", resetGame);
+});
+
+// ===========================
+// 5. Game Initialization
+// ===========================
+
+function switchLang(lang) {
+    currentLanguage = lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+
+    // Set the UI text
+    expSentence.innerHTML = language[lang].exp_sentence;
+    document.querySelector(".winning-para").innerHTML = language[lang].win + " <span></span>";
+    document.querySelector(".losing-para").innerHTML = language[lang].lose + " <span></span>";
+    document.querySelectorAll(".retry-btn").forEach(btn => {
+        btn.childNodes[0].textContent = language[lang].retry + " ";
+    });
+
+    makingKeyboard(lang);
+    // start the game
+    run(lang);
 }
 
-// A function to disable all keys after win or lose
-function disablingKeys() {
-    keys.forEach(key => key.classList.add("disabled"));
+//making the keyboard either Arabic or English
+function makingKeyboard(lang) {
+    keyboard.innerHTML = "";
+    const keysOfBoards = keyboardLayOut[lang];
+    const rowLength = lang === "ar" ? 10 : 9;
+
+    for (let i = 0; i < keysOfBoards.length; i += rowLength) {
+        const row = document.createElement("div");
+        row.className = "row";
+        keysOfBoards.slice(i, i + rowLength).forEach(letter => {
+            const btn = document.createElement("button");
+            btn.className = "key";
+            btn.textContent = letter;
+            row.appendChild(btn);
+        });
+        keyboard.appendChild(row);
+    }
 }
 
-// A function to display the losing screen
-function lose(guessedWord) {
-    const loseBox = document.querySelector(".losing");
-    const holder = document.querySelector(".losing .losing-para span");
-    disablingKeys(); // Disable keys
-    setTimeout(() => {
-        showingWinAndLose(loseBox, holder, guessedWord); // Show losing box and word
-        playSound(losingSound);
-    }, 500);
+// Running the game
+async function run(lang) {
+    const file = lang === "ar" ? "./arabicWords.json" : "./words.json";
+    const loadedWords = await fetchingWords(file);
+    const word = chooseWord(loadedWords);
+    setCurrentWord(word);
+    makingPlots(word);
 }
 
-// A function to display the winning screen
-function win(guessedWord) {
-    const winBox = document.querySelector(".winning");
-    const holder = document.querySelector(".winning .winning-para span");
-    disablingKeys(); // Disable keys
-    setTimeout(() => {
-        showingWinAndLose(winBox, holder, guessedWord); // Show winning box and word
-        playSound(winningSound);    
-    }, 500);
+// ===========================
+// 6. Word Management
+// ===========================
+
+async function fetchingWords(link) {
+    try {
+        const response = await fetch(link);
+        const words = await response.json();
+        return words;
+    } catch (e) {
+        console.log(`An error occurred: ${e}`);
+    }
 }
 
-// Making Sounds
-function playSound(src) {
-    const sound = new Audio(src); // Make a new object to avoid not running state
-    sound.play();
-}
-
-// A reusable function to show win or lose box
-function showingWinAndLose(box, wordHolder, guessedWord) {
-    box.style.display = "flex"; // Show the box
-    wordHolder.textContent = guessedWord; // Put the correct word inside the box
-}
-
-// Selecting a random word from the JSON file
 function chooseWord(words) {
     const categories = Object.keys(words); // Get the categories from the object
     const randomCategoryIndex = Math.floor(Math.random() * categories.length); // Get random index
@@ -100,8 +171,13 @@ function chooseWord(words) {
     const numOfValues = words[randomCategory].length; // Get length of selected category
     const randomValue = Math.floor(Math.random() * numOfValues); // Select random value index
     const selectedWord = words[randomCategory][randomValue]; // Get the word
-    hintSentence.textContent = `Hint: ${randomCategory}`; // Show the hint (category name)
+    hintSentence.textContent = `${randomCategory}`; // Show the hint (category name)
     return selectedWord;
+}
+
+// A function to set the current guessed word globally
+function setCurrentWord(word) {
+    currentWord = word.toUpperCase().split(""); // Convert word to uppercase array
 }
 
 // Creating the letter input fields dynamically
@@ -118,33 +194,44 @@ function makingPlots(selectedWord) {
     }
 }
 
-// Fetching the words from the JSON file
-async function fetchingWords(link) {
-    try{
-        const response = await fetch(link);
-        const words = await response.json();
-        return words;
-    }
-    catch(e){
-        console.log(`An error occurred: ${e}`)
-    }
+// ===========================
+// 7. Game Endings (Win/Lose)
+// ===========================
+
+function win(guessedWord) {
+    const winBox = document.querySelector(".winning");
+    const holder = document.querySelector(".winning .winning-para span");
+    disablingKeys();
+    setTimeout(() => {
+        showingWinAndLose(winBox, holder, guessedWord);
+        playSound(winningSound);
+    }, 500);
 }
 
-// Main function to start the game
-async function run() {
-    const loadedWords = await fetchingWords("./words.json"); // Load words from file
-    const word = chooseWord(loadedWords); // Select random word
-    setCurrentWord(word); // Set the current word
-    makingPlots(word); // Create letter inputs based on word length
+function lose(guessedWord) {
+    const loseBox = document.querySelector(".losing");
+    const holder = document.querySelector(".losing .losing-para span");
+    disablingKeys();
+    setTimeout(() => {
+        showingWinAndLose(loseBox, holder, guessedWord);
+        playSound(losingSound);
+    }, 500);
 }
 
-run(); // Call the main function to start the game
+function showingWinAndLose(box, wordHolder, guessedWord) {
+    box.style.display = "flex";
+    wordHolder.textContent = guessedWord;
+}
 
-// Retry button handling (reset the game)
-const retryBtns = document.querySelectorAll(".retry-btn");
-retryBtns.forEach(btn => {
-    btn.addEventListener("click", resetGame); // Add event listener to all retry buttons
-});
+// A function to disable all keys after win or lose
+function disablingKeys() {
+    keys = document.querySelectorAll(".key"); // Used for disabling keys
+    keys.forEach(key => key.classList.add("disabled"));
+}
+
+// ===========================
+// 8. Game Reset
+// ===========================
 
 // Reset the game state when retrying
 async function resetGame() {
@@ -158,9 +245,25 @@ async function resetGame() {
     // Hide win/lose boxes
     document.querySelector(".winning").style.display = "none";
     document.querySelector(".losing").style.display = "none";
+    // Choose the file depnding on the selected language before
+    resetingLanguage = currentLanguage === "ar" ? "./arabicWords.json" : "./words.json";
     // Load a new word
-    const loadedWords = await fetchingWords("./words.json");
+    const loadedWords = await fetchingWords(resetingLanguage);
     const newWord = chooseWord(loadedWords);
     setCurrentWord(newWord); // Set the new word globally
     makingPlots(newWord); // Create new inputs
+}
+
+// ===========================
+// 9. Audio Setup
+// ===========================
+
+const correctSound = ("./audio/correct-6033.mp3");
+const wrongSound = ("./audio/wrong-47985.mp3");
+const winningSound = ("./audio/goodresult-82807.mp3");
+const losingSound = ("./audio/fail-144746.mp3");
+
+function playSound(src) {
+    const sound = new Audio(src); // Make a new object to avoid not running state
+    sound.play();
 }

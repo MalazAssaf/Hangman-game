@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hangman Game</title>
@@ -10,6 +10,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="start-game">
+        <div class="content">
+            <h1>Choose the language and start playing!</h1>
+            <br>
+            <h1>اختر اللغة لتبدأ اللعبة</h1>
+            <div class="buttons">
+                <button class="eng">English</button>
+                <button class="ara  ">عربي</button>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="left-side">
             <div class="hint">
@@ -17,7 +28,7 @@
             </div>
             <div class="letters-container"></div>
             <div class="keyboard" id="keyboard">
-                <!-- Row 1 -->
+                <!-- Row 1
                 <div class="row">
                     <button class="key">A</button>
                     <button class="key">B</button>
@@ -28,9 +39,9 @@
                     <button class="key">G</button>
                     <button class="key">H</button>
                     <button class="key">I</button>
-                </div>
+                </div> -->
                 <!-- Row 2 -->
-                <div class="row">
+                <!-- <div class="row">
                     <button class="key">J</button>
                     <button class="key">K</button>
                     <button class="key">L</button>
@@ -40,9 +51,9 @@
                     <button class="key">P</button>
                     <button class="key">Q</button>
                     <button class="key">R</button>
-                </div>
+                </div> -->
                 <!-- Row 3 -->
-                <div class="row">
+                <!-- <div class="row">
                     <button class="key">S</button>
                     <button class="key">T</button>
                     <button class="key">U</button>
@@ -51,11 +62,11 @@
                     <button class="key">X</button>
                     <button class="key">Y</button>
                     <button class="key">Z</button>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="right-side">
-            <h4>Guess the word to help the poor man!</h4>
+            <h4 class="exp-sentence"></h4>
             <div class="hang">
                 <!-- Hang -->
                 <div class="base"></div>
@@ -70,19 +81,22 @@
                 <div class="leg-left"></div>
                 <div class="leg-right"></div>
             </div>
+            <div class="buttons">
+                <button class="eng">English</button>
+                <button class="ara  ">عربي</button>
+            </div>
         </div>
-    </div>
         <div class="box winning">
-            <p class="winning-para">✨ Congrats! You saved the hangman and cracked the word: <span></span></p>
-                <button class="retry-btn">
-                    Retry <i class="fa-solid fa-rotate-right"></i>
-                </button>
+            <p class="winning-para"></p>
+            <button class="retry-btn">
+                <i class="fa-solid fa-rotate-right"></i>
+            </button>
         </div>
         <div class="box losing">
-            <p class="losing-para">💀 Oh no! The hangman couldn't be saved. The correct word was: <span class="guessed-word">Hand</span></p>
-                <button class="retry-btn">
-                    Retry <i class="fa-solid fa-rotate-right"></i>
-                </button>
+            <p class="losing-para"></p>
+            <button class="retry-btn">
+                <i class="fa-solid fa-rotate-right"></i>
+            </button>
         </div>
     </div>
     <script src="main.js"></script>
