@@ -125,7 +125,7 @@ function switchLang(lang) {
     // Hide all hangman parts
     Array.from(hang.children).forEach(part => part.style.display = "none");
     // Re-enable all keyboard keys
-    runAndDisableKeys();
+    diablingKeys();
     // Hide win/lose boxes
     document.querySelector(".winning").style.display = "none";
     document.querySelector(".losing").style.display = "none";
@@ -214,7 +214,7 @@ function makingPlots(selectedWord) {
 function win(guessedWord) {
     const winBox = document.querySelector(".winning");
     const holder = document.querySelector(".winning .winning-para span");
-    runAndDisableKeys();
+    diablingKeys();
     setTimeout(() => {
         showingWinAndLose(winBox, holder, guessedWord);
         playSound(winningSound);
@@ -224,7 +224,7 @@ function win(guessedWord) {
 function lose(guessedWord) {
     const loseBox = document.querySelector(".losing");
     const holder = document.querySelector(".losing .losing-para span");
-    runAndDisableKeys();
+    diablingKeys();
     setTimeout(() => {
         showingWinAndLose(loseBox, holder, guessedWord);
         playSound(losingSound);
@@ -237,9 +237,9 @@ function showingWinAndLose(box, wordHolder, guessedWord) {
 }
 
 // A function to disable all keys after win or lose
-function runAndDisableKeys() {
+function diablingKeys() {
     keys = document.querySelectorAll(".key"); // Used for disabling keys
-    keys.forEach(key => key.classList.toggle("disabled"));
+    keys.forEach(key => key.classList.add("disabled"));
 }
 
 // ===========================
@@ -254,8 +254,9 @@ async function resetGame() {
     // Hide all hangman parts
     Array.from(hang.children).forEach(part => part.style.display = "none");
     // Re-enable all keyboard keys
-    runAndDisableKeys();
-    // Hide win/lose boxes
+    keys = document.querySelectorAll(".key"); // Used for disabling keys
+    keys.forEach(key => key.classList.remove("disabled"));    // Hide win/lose boxes
+    // Hiding winning and losing pop up
     document.querySelector(".winning").style.display = "none";
     document.querySelector(".losing").style.display = "none";
     // Choose the file depnding on the selected language before
