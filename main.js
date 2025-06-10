@@ -124,8 +124,6 @@ function switchLang(lang) {
     letterContainer.innerHTML = ""; // Clear old letter inputs
     // Hide all hangman parts
     Array.from(hang.children).forEach(part => part.style.display = "none");
-    // Re-enable all keyboard keys
-    diablingKeys();
     // Hide win/lose boxes
     document.querySelector(".winning").style.display = "none";
     document.querySelector(".losing").style.display = "none";
